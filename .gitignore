@@ -1,0 +1,41 @@
+# PlatformIO
+firmware/.pio/
+firmware/.vscode/
+
+# Secrets — never commit credentials
+firmware/include/secrets.h
+firmware/src/secrets.h
+pi/config/secrets.py
+pi/config/secrets.json
+*.env
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pi/venv/
+pi/.venv/
+*.egg-info/
+dist/
+build/
+
+# SQLite database (runtime data, not source)
+*.db
+*.sqlite
+*.sqlite3
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
