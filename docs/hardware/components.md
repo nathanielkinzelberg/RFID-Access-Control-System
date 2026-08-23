@@ -6,13 +6,16 @@
 
 | Item              | Value |
 |-------------------|-------|
-| Board name        |       |
-| USB chip          |       |
-| Flash size        | 4MB (typical) |
-| RAM               | 520 KB SRAM |
+| Board name        | ESP32 DevKit V1 (DOIT) |
+| Chip              | ESP32-D0WD-V3, revision 3.1 |
+| USB chip          | CP210x (confirmed via /dev/ttyUSB0) |
+| Flash size        | 4 MB |
+| RAM               | 320 KB (reported by PlatformIO) |
 | Logic voltage     | 3.3V |
 | Max GPIO current  | 12 mA per pin |
-| CPU               | Xtensa LX6 dual-core, up to 240 MHz |
+| CPU               | Xtensa LX6 dual-core, 240 MHz |
+| Serial port       | /dev/ttyUSB0 |
+| MAC address       | 1c:c3:ab:3d:99:2c |
 
 **Datasheet / pinout:** (add URL or local file reference)
 

@@ -44,7 +44,7 @@ embedded-rfid-access-control/
 
 | Phase | Title                        | Status      |
 |-------|------------------------------|-------------|
-| 0     | Dev Environment              | In Progress |
+| 0     | Dev Environment              | Complete    |
 | 1     | GPIO Basics (LED + Button)   | Not Started |
 | 2     | RC522 RFID Reader            | Not Started |
 | 3     | Authorization Logic          | Not Started |
