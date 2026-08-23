@@ -2,7 +2,22 @@
 
 A complete embedded access-control system built from scratch as a portfolio project. The ESP32 handles all real-time hardware control; the Raspberry Pi 5 handles logging, administration, and the web dashboard.
 
-> **Status:** In progress — Phase 0 (Development Environment)
+> **Status:** In progress — Phase 1 (GPIO Basics)
+
+## Progress
+
+| Phase | Title                      | Status   |
+|-------|----------------------------|----------|
+| 0     | Dev Environment            | Complete |
+| 1     | GPIO Basics (LED + Button) | In Progress |
+| 2     | RC522 RFID Reader          | Not Started |
+| 3     | Authorization Logic        | Not Started |
+| 4     | Status LEDs                | Not Started |
+| 5     | Buzzer                     | Not Started |
+| 6     | Servo Lock                 | Not Started |
+| 7     | OLED Display               | Not Started |
+| 8     | Firmware Architecture      | Not Started |
+| 9–25  | ...                        | Not Started |
 
 ---
 

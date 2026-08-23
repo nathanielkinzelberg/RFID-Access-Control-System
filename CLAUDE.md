@@ -45,7 +45,7 @@ embedded-rfid-access-control/
 | Phase | Title                        | Status      |
 |-------|------------------------------|-------------|
 | 0     | Dev Environment              | Complete    |
-| 1     | GPIO Basics (LED + Button)   | Not Started |
+| 1     | GPIO Basics (LED + Button)   | In Progress |
 | 2     | RC522 RFID Reader            | Not Started |
 | 3     | Authorization Logic          | Not Started |
 | 4     | Status LEDs                  | Not Started |
@@ -82,6 +82,15 @@ embedded-rfid-access-control/
 | Active buzzer    | Confirm polarity                           |
 | Green/Red LEDs   | Always use current-limiting resistor       |
 | Raspberry Pi 5   | 3.3V GPIO logic                            |
+
+## End of Phase Checklist
+
+At the end of every phase, before the user commits, always update:
+1. **CLAUDE.md** — mark the phase Complete in the Phase Tracking table, mark next phase In Progress
+2. **README.md** — update the status line and Progress table
+3. **docs/journal/phase_NN_*.md** — fill in all sections: dates, hardware, wiring, concepts learned, problems encountered, multimeter work, final code reference
+4. **docs/hardware/components.md** — fill in any newly confirmed hardware details
+5. **docs/wiring/README.md** — add any new pin assignments to the global pin reference table
 
 ## Key Rules for Claude
 
