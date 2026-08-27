@@ -120,7 +120,6 @@ void loop() {
     step++;
   }
 
-
   
 
   // Space: Off_1000ms. Step 3
@@ -132,60 +131,85 @@ void loop() {
     step++;
   }
 
-  // A
-
-  digitalWrite(2, HIGH);
-
-  delay(300);
-
-  digitalWrite(2, LOW);
-
-  delay(100);
-
-  digitalWrite(2, HIGH);
-
-  delay(700);
 
 
+  // A: On_300ms, Off_100ms, On_700ms. Steps 4, 5, 6
 
-  //Space
+  if((millis() - lastTime >= 300) && (step == 4)) {
+    // Turn off the LED after 300 milliseconds
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
 
-  digitalWrite(2, LOW);
+  if((millis() - lastTime >= 100) && (step == 5)) {
+    // Turn on the LED after 100 milliseconds
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step++;
+  }
 
-  delay(1000);
+  if((millis() - lastTime >= 700) && (step == 6)) {
+    // Turn off the LED after 700 milliseconds
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
 
 
 
-  //T
+  // Space: Off_1000ms. Step 7
 
-  digitalWrite(2, HIGH);
+  if((millis() - lastTime >= 1000) && (step == 7)) {
+    // Turn on the LED after 1000 milliseconds
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step++;
+  }
 
-  delay(700);
+
+
+  // T: On_700ms. Step 8
+
+  if((millis() - lastTime >= 700) && (step == 8)) {
+    // Turn off the LED after 700 milliseconds
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
 
   
 
-  //Space
+  // Space: Off_1000ms. Step 9
 
-  digitalWrite(2, LOW);
-
-  delay(1000);
-
-
-
-  //E
-
-  digitalWrite(2, HIGH);
-
-  delay(300);
+  if((millis() - lastTime >= 1000) && (step == 9)) {
+    // Turn on the LED after 1000 milliseconds
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step++;
+  }
 
 
 
-  //2 Second Break
+  // E: On_300ms. Step 10
 
-  digitalWrite(2, LOW);
+  if((millis() - lastTime >= 300) && (step == 10)) {
+    // Turn off the LED after 300 milliseconds
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
 
-  delay(2000);
 
+
+  // 2 Second Break: Step 11
+
+  if((millis() - lastTime >= 2000) && (step == 11)) {
+    // Turn on the LED after 2000 milliseconds
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step = 0;
+  }
 }
 
 
