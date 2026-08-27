@@ -46,7 +46,7 @@ The ESP32 does not drive any pins unless explicitly told to in code. Wiring alon
 `D2` is the label printed on the physical board. In Arduino/PlatformIO code you refer to it by its GPIO number — `2`. On the ESP32 DevKit V1 these match.
 
 ### delay()
-`delay(500)` pauses execution for 500 milliseconds. The CPU sits idle doing nothing during this time. Simple but problematic for systems that need to handle multiple things at once.
+`delay(500)` pauses execution for 500 milliseconds. The CPU sits idle doing nothing during this time. Simple and easy to use — useful for timing-based exercises like Morse code — but problematic for systems that need to handle multiple things at once (like reading a button while blinking an LED). That's why `millis()` is used next.
 
 ### Breadboard
 Holes in the same numbered row (same side of the gap) are electrically connected. The gap in the middle separates the two halves. Female-to-male jumper wires connect the breadboard to ESP32 pins.
@@ -62,10 +62,30 @@ This is the core loop of all embedded development.
 - [x] LED wired correctly
 - [x] LED turned on with `digitalWrite(2, HIGH)`
 - [x] LED turned off with `digitalWrite(2, LOW)`
-- [ ] LED blinking with `delay()`
+- [x] LED blinking with `delay()`
 - [ ] Button wired and read
 - [ ] Non-blocking timing with `millis()`
 - [ ] LED controlled by button
+
+---
+
+## Morse Code Exercise
+
+As a first blinking exercise, coded "NATE" in Morse code using the LED on GPIO 2.
+
+| Letter | Morse | Pattern                        |
+|--------|-------|--------------------------------|
+| N      | −·    | 700ms on, 100ms off, 300ms on  |
+| A      | ·−    | 300ms on, 100ms off, 700ms on  |
+| T      | −     | 700ms on                       |
+| E      | ·     | 300ms on                       |
+
+Timing conventions used:
+- Dot: 300ms HIGH
+- Dash: 700ms HIGH
+- Gap between symbols in same letter: 100ms LOW
+- Gap between letters: 1000ms LOW
+- End of word: 2000ms LOW
 
 ---
 
@@ -75,11 +95,45 @@ This is the core loop of all embedded development.
 #include <Arduino.h>
 
 void setup() {
-    pinMode(2, OUTPUT);
-    digitalWrite(2, HIGH);
+  pinMode(2, OUTPUT);
 }
 
 void loop() {
+  // N (-.)
+  digitalWrite(2, HIGH);
+  delay(700);
+  digitalWrite(2, LOW);
+  delay(100);
+  digitalWrite(2, HIGH);
+  delay(300);
+
+  digitalWrite(2, LOW);
+  delay(1000);
+
+  // A (.-)
+  digitalWrite(2, HIGH);
+  delay(300);
+  digitalWrite(2, LOW);
+  delay(100);
+  digitalWrite(2, HIGH);
+  delay(700);
+
+  digitalWrite(2, LOW);
+  delay(1000);
+
+  // T (-)
+  digitalWrite(2, HIGH);
+  delay(700);
+
+  digitalWrite(2, LOW);
+  delay(1000);
+
+  // E (.)
+  digitalWrite(2, HIGH);
+  delay(300);
+
+  digitalWrite(2, LOW);
+  delay(2000);
 }
 ```
 

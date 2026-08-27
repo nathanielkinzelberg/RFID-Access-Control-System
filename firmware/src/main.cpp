@@ -11,6 +11,7 @@ Short Blink
   delay(300);
   digitalWrite(2, LOW);
   delay(100);
+  
   Long Blink
   digitalWrite(2, HIGH);
   delay(700);
@@ -36,4 +37,24 @@ void loop() {
   delay(100);
   digitalWrite(2, HIGH);
   delay(700);
+
+  //Space
+  digitalWrite(2, LOW);
+  delay(1000);
+
+  //T
+  digitalWrite(2, HIGH);
+  delay(700);
+  
+  //Space
+  digitalWrite(2, LOW);
+  delay(1000);
+
+  //E
+  digitalWrite(2, HIGH);
+  delay(300);
+
+  //2 Second Break
+  digitalWrite(2, LOW);
+  delay(2000);
 }
