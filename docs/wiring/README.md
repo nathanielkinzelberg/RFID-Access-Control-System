@@ -19,7 +19,8 @@ Each phase that introduces new hardware has a wiring table here and in its journ
 
 | ESP32 GPIO | Function         | Phase |
 |------------|------------------|-------|
-|            |                  |       |
+| 2          | LED output       | 1     |
+| 4          | Button input     | 1     |
 
 ## Voltage Rails
 

@@ -1,7 +1,7 @@
 # Phase 1 — GPIO Basics (LED + Button)
 
 **Date started:** 2026-08-24
-**Date completed:**
+**Date completed:** 2026-08-27
 
 ---
 
@@ -69,6 +69,12 @@ A pin set to `INPUT_PULLDOWN` is a listener — it never outputs anything. The i
 ### Active HIGH Button
 Wiring the button between 3V3 and the input pin means pressing it connects 3.3V to the pin → HIGH. Using `INPUT_PULLDOWN` means no external resistor is needed.
 
+### millis() and Non-blocking Timing
+`millis()` returns the number of milliseconds since the ESP32 booted — a stopwatch always running in the background. Instead of freezing execution with `delay()`, you check "has enough time passed?" each time through `loop()`. The CPU keeps running and can handle other work between timed events.
+
+### Step-based State Machine
+To sequence multiple timed events (like Morse code symbols), use an index variable to track which step you're on. Each `if` block checks both the elapsed time and the current step — when the condition is met, it performs the action, resets the timer, and advances to the next step. This is the foundation of the state machine pattern used throughout the RFID firmware.
+
 ### Full Embedded Loop
 Write code → Compile → Flash → ESP32 executes → Physical world responds.
 This is the core loop of all embedded development.
@@ -83,7 +89,7 @@ This is the core loop of all embedded development.
 - [x] LED blinking with `delay()`
 - [x] Button wired and read
 - [x] LED controlled by button
-- [ ] Non-blocking timing with `millis()`
+- [x] Non-blocking timing with `millis()` — "NATE" in Morse code, non-blocking
 
 ---
 
@@ -173,6 +179,102 @@ void loop() {
   } else {
     // If the input pin is LOW (button unpressed), turn off the output pin
     digitalWrite(2, LOW);
+  }
+}
+```
+
+---
+
+## Code — Non-blocking Morse Code with millis()
+
+```cpp
+#include <Arduino.h>
+
+unsigned long lastTime = 0;
+int step = 0;
+
+void setup() {
+  pinMode(2, OUTPUT);
+  pinMode(4, INPUT_PULLDOWN);
+  digitalWrite(2, HIGH);  // start N's first dash
+  lastTime = millis();
+}
+
+void loop() {
+  // N: On_700ms, Off_100ms, On_300ms. Steps 0, 1, 2
+  if ((millis() - lastTime >= 700) && (step == 0)) {
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
+  if ((millis() - lastTime >= 100) && (step == 1)) {
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step++;
+  }
+  if ((millis() - lastTime >= 300) && (step == 2)) {
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
+
+  // Space: Off_1000ms. Step 3
+  if ((millis() - lastTime >= 1000) && (step == 3)) {
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step++;
+  }
+
+  // A: On_300ms, Off_100ms, On_700ms. Steps 4, 5, 6
+  if ((millis() - lastTime >= 300) && (step == 4)) {
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
+  if ((millis() - lastTime >= 100) && (step == 5)) {
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step++;
+  }
+  if ((millis() - lastTime >= 700) && (step == 6)) {
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
+
+  // Space: Off_1000ms. Step 7
+  if ((millis() - lastTime >= 1000) && (step == 7)) {
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step++;
+  }
+
+  // T: On_700ms. Step 8
+  if ((millis() - lastTime >= 700) && (step == 8)) {
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
+
+  // Space: Off_1000ms. Step 9
+  if ((millis() - lastTime >= 1000) && (step == 9)) {
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step++;
+  }
+
+  // E: On_300ms. Step 10
+  if ((millis() - lastTime >= 300) && (step == 10)) {
+    digitalWrite(2, LOW);
+    lastTime = millis();
+    step++;
+  }
+
+  // 2 Second Break: Step 11 — reset and loop
+  if ((millis() - lastTime >= 2000) && (step == 11)) {
+    digitalWrite(2, HIGH);
+    lastTime = millis();
+    step = 0;
   }
 }
 ```
