@@ -16,12 +16,12 @@ Learn fundamental ESP32 GPIO by wiring an LED and button, then replace blocking 
 - ESP32 DevKit V1
 - 1x LED
 - 1x 220–330 Ω resistor
-- 1x tactile push button (not yet added)
+- 1x tactile push button
 - Breadboard + jumper wires (male-to-male and female-to-male)
 
 ---
 
-## Wiring (LED)
+## Wiring (LED and Button)
 
 | Component        | Breadboard hole | Notes                          |
 |------------------|-----------------|--------------------------------|
@@ -31,6 +31,15 @@ Learn fundamental ESP32 GPIO by wiring an LED and button, then replace blocking 
 | Resistor leg 1   | c2              | Same row as LED short leg      |
 | Resistor leg 2   | c4              |                                |
 | Jumper wire      | d4              | Other end → ESP32 GND (female-to-male) |
+
+**Button (GPIO 4, active HIGH, no external resistor needed):**
+
+| Component   | Breadboard hole | Notes                          |
+|-------------|-----------------|--------------------------------|
+| Jumper wire | a10             | Other end → ESP32 3V3          |
+| Button leg 1| b10             | Same row as 3V3 wire           |
+| Button leg 2| b12             | Other side of button gap       |
+| Jumper wire | a12             | Other end → ESP32 GPIO 4 (D4)  |
 
 ---
 
@@ -51,6 +60,15 @@ The ESP32 does not drive any pins unless explicitly told to in code. Wiring alon
 ### Breadboard
 Holes in the same numbered row (same side of the gap) are electrically connected. The gap in the middle separates the two halves. Female-to-male jumper wires connect the breadboard to ESP32 pins.
 
+### GPIO Input and INPUT_PULLDOWN
+A pin set to `INPUT_PULLDOWN` is a listener — it never outputs anything. The internal pull-down resistor (~45kΩ) holds the pin firmly at LOW when nothing is connected, preventing floating/garbage readings. When the button is pressed, 3.3V is connected directly to the pin and it reads HIGH.
+
+### digitalRead()
+`digitalRead(pin)` returns `HIGH` (1) or `LOW` (0) depending on whether voltage is present on the pin at that moment. Used to check the button state each time through `loop()`.
+
+### Active HIGH Button
+Wiring the button between 3V3 and the input pin means pressing it connects 3.3V to the pin → HIGH. Using `INPUT_PULLDOWN` means no external resistor is needed.
+
 ### Full Embedded Loop
 Write code → Compile → Flash → ESP32 executes → Physical world responds.
 This is the core loop of all embedded development.
@@ -63,9 +81,9 @@ This is the core loop of all embedded development.
 - [x] LED turned on with `digitalWrite(2, HIGH)`
 - [x] LED turned off with `digitalWrite(2, LOW)`
 - [x] LED blinking with `delay()`
-- [ ] Button wired and read
+- [x] Button wired and read
+- [x] LED controlled by button
 - [ ] Non-blocking timing with `millis()`
-- [ ] LED controlled by button
 
 ---
 
@@ -89,7 +107,7 @@ Timing conventions used:
 
 ---
 
-## Code So Far
+## Code — Morse Code (delay-based blink)
 
 ```cpp
 #include <Arduino.h>
@@ -134,6 +152,28 @@ void loop() {
 
   digitalWrite(2, LOW);
   delay(2000);
+}
+```
+
+## Code — Button Controls LED
+
+```cpp
+#include <Arduino.h>
+
+void setup() {
+  pinMode(2, OUTPUT);
+  pinMode(4, INPUT_PULLDOWN);
+}
+
+void loop() {
+  // Check if the input pin is HIGH aka Button is being pressed
+  if (digitalRead(4) == HIGH) {
+    // If the input pin is HIGH, turn on the output pin
+    digitalWrite(2, HIGH);
+  } else {
+    // If the input pin is LOW (button unpressed), turn off the output pin
+    digitalWrite(2, LOW);
+  }
 }
 ```
 
