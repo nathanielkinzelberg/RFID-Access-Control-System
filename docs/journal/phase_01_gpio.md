@@ -1,6 +1,6 @@
 # Phase 1 — GPIO Basics (LED + Button)
 
-**Date started:**
+**Date started:** 2026-08-24
 **Date completed:**
 
 ---
@@ -13,64 +13,89 @@ Learn fundamental ESP32 GPIO by wiring an LED and button, then replace blocking 
 
 ## Hardware Used
 
-- ESP32 DevKit
-- 1x LED (color: )
+- ESP32 DevKit V1
+- 1x LED
 - 1x 220–330 Ω resistor
-- 1x tactile push button
-- Breadboard + jumper wires
+- 1x tactile push button (not yet added)
+- Breadboard + jumper wires (male-to-male and female-to-male)
 
 ---
 
-## Wiring
+## Wiring (LED)
 
-| Component Pin | ESP32 Pin | Notes |
-|---------------|-----------|-------|
-|               |           |       |
+| Component        | Breadboard hole | Notes                          |
+|------------------|-----------------|--------------------------------|
+| Jumper wire      | a1              | Other end → ESP32 GPIO 2 (female-to-male) |
+| LED long leg (+) | b1              | Same row as GPIO 2 wire        |
+| LED short leg (−)| b2              |                                |
+| Resistor leg 1   | c2              | Same row as LED short leg      |
+| Resistor leg 2   | c4              |                                |
+| Jumper wire      | d4              | Other end → ESP32 GND (female-to-male) |
 
 ---
 
 ## Key Concepts Learned
 
-### GPIO Output (LED)
+### GPIO Output
+GPIO pins on the ESP32 are configurable. You must call `pinMode(pin, OUTPUT)` before using a pin as output — pins do not do anything by default. `digitalWrite(pin, HIGH)` sets the pin to 3.3V; `digitalWrite(pin, LOW)` sets it to 0V.
 
+### Why the LED didn't work at first
+The ESP32 does not drive any pins unless explicitly told to in code. Wiring alone is not enough — you must configure the pin and set its state in firmware.
 
-### GPIO Input (Button)
+### Pin Numbers in Code
+`D2` is the label printed on the physical board. In Arduino/PlatformIO code you refer to it by its GPIO number — `2`. On the ESP32 DevKit V1 these match.
 
+### delay()
+`delay(500)` pauses execution for 500 milliseconds. The CPU sits idle doing nothing during this time. Simple but problematic for systems that need to handle multiple things at once.
 
-### Pull-up vs Pull-down Resistors
+### Breadboard
+Holes in the same numbered row (same side of the gap) are electrically connected. The gap in the middle separates the two halves. Female-to-male jumper wires connect the breadboard to ESP32 pins.
 
-
-### Why LEDs Need a Current-Limiting Resistor
-
-
-### Blocking vs Non-blocking Code
-
-
-### millis() and Non-blocking Timing
-
-
-### Connection to OS Concepts
-*(How does blocking relate to CPU scheduling, context switching, or busy-waiting?)*
+### Full Embedded Loop
+Write code → Compile → Flash → ESP32 executes → Physical world responds.
+This is the core loop of all embedded development.
 
 ---
 
-## Code Written
+## Progress
 
-*(Paste your final working code here, or reference the file path)*
+- [x] LED wired correctly
+- [x] LED turned on with `digitalWrite(2, HIGH)`
+- [x] LED turned off with `digitalWrite(2, LOW)`
+- [ ] LED blinking with `delay()`
+- [ ] Button wired and read
+- [ ] Non-blocking timing with `millis()`
+- [ ] LED controlled by button
+
+---
+
+## Code So Far
+
+```cpp
+#include <Arduino.h>
+
+void setup() {
+    pinMode(2, OUTPUT);
+    digitalWrite(2, HIGH);
+}
+
+void loop() {
+}
+```
 
 ---
 
 ## Problems Encountered
 
-*(Document any wiring mistakes, logic errors, or unexpected behavior)*
+### LED didn't light up on first try
+**Cause:** No code written to drive the GPIO pin — wiring was correct but the pin was never configured or set HIGH.
+**Fix:** Wrote `pinMode(2, OUTPUT)` and `digitalWrite(2, HIGH)` in `setup()`, then uploaded.
 
 ---
 
 ## Multimeter Work
 
-- Measured voltage at LED anode: __ V
-- Measured voltage at LED cathode: __ V
-- Continuity check on:
+*(To be filled in)*
 
 ---
 
