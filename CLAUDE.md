@@ -67,7 +67,7 @@ embedded-rfid-access-control/
 | 20    | FreeRTOS Upgrade             | Not Started |
 | 21    | Security Review              | Not Started |
 | 22    | Testing                      | Not Started |
-| 23    | GitHub Portfolio             | Not Started |
+| 23    | GitHub Portfolio + Portfolio Site | Not Started |
 | 24    | Résumé Bullets               | Not Started |
 | 25    | Interview Prep               | Not Started |
 
@@ -91,6 +91,46 @@ At the end of every phase, before the user commits, always update:
 3. **docs/journal/phase_NN_*.md** — fill in all sections: dates, hardware, wiring, concepts learned, problems encountered, multimeter work, final code reference
 4. **docs/hardware/components.md** — fill in any newly confirmed hardware details
 5. **docs/wiring/README.md** — add any new pin assignments to the global pin reference table
+
+## Phase 23 — GitHub Portfolio + Portfolio Site
+
+When Phase 23 is reached, do the following in order:
+
+### 1. GitHub
+- Confirm the repo is public at: https://github.com/nathanielkinzelberg/RFID-Access-Control-System
+- Verify README.md is polished and complete
+
+### 2. Portfolio Site
+- Portfolio lives at: `~/portfolio/index.html`
+- Portfolio CLAUDE.md is at: `~/portfolio/CLAUDE.md` — read it before touching anything
+- Add a project card to the **Personal Projects** section (`#personal`)
+- Add an entry to the **All Projects** dropdown
+- Use the `badge-progress` class on the `<h3>` if still in progress; remove it when complete
+
+**Card template to use:**
+```html
+<div class="card">
+  <div class="card-header">
+    <i class="fa-solid fa-key card-icon"></i>
+  </div>
+  <h3>RFID Access Control System</h3>
+  <p>Physical door-access control system built from scratch. ESP32 handles real-time hardware: RFID reader, servo lock, OLED, LEDs, and buzzer. Raspberry Pi runs logging, a REST API, and a web dashboard. Built phase by phase across 25 stages.</p>
+  <div class="card-tags"><span>C++</span><span>ESP32</span><span>Embedded</span><span>Python</span><span>Raspberry Pi</span><span>Linux</span></div>
+  <div class="card-footer">
+    <a href="https://github.com/nathanielkinzelberg/RFID-Access-Control-System" class="card-btn" target="_blank" rel="noopener">
+      <i class="fa-brands fa-github"></i> GitHub
+    </a>
+  </div>
+</div>
+```
+
+**Portfolio tone rules (from portfolio/CLAUDE.md):**
+- No em-dashes. Use a colon or a new sentence.
+- No corporate/AI language ("hands-on", "proven ability", etc.)
+- Short and conversational
+- Commit the portfolio after adding the card
+
+---
 
 ## Key Rules for Claude
 
