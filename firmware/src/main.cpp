@@ -5,21 +5,35 @@
 #define SS_PIN 5
 #define RST_PIN 22
 
-  // Used for the millis() function to get the current time in milliseconds since the program started running.
-  // Specifically for the Morse Code Blinking project, this allows for precise timing of the LED blinks to represent Morse code signals.
-  unsigned long lastTime = 0;
-  int step = 0;
+
+MFRC522 scanTing(SS_PIN, RST_PIN); // Create MFRC522 instance thats global
+
 
 void setup() {
-  pinMode(2, OUTPUT);
-  pinMode(4, INPUT_PULLDOWN);
-
-  // Initialize the light to be on at the start of the program
-  digitalWrite(2, HIGH);
-  lastTime = millis();
+  Serial.begin(115200); // starts serial so we can print to monito
+  SPI.begin(18, 19, 23, 5); // Starts SPI bus
+  scanTing.PCD_Init(); // Init MFRC522
+  byte version = scanTing.PCD_ReadRegister(scanTing.VersionReg); // Read version register
+  Serial.print("MFRC522 Version: 0x");
+  Serial.println(version, HEX);
 }
 
 void loop () {
 
+  if(!scanTing.PICC_IsNewCardPresent()) { // If no new card is present, return
+    return;
+  }
 
-}
+  if(!scanTing.PICC_ReadCardSerial()) { // If we can't read the card, return
+    return;
+  }
+
+  Serial.print(F("Card UID:")); // Print UID
+  for (byte i = 0; i < scanTing.uid.size; i++) {
+    Serial.print(scanTing.uid.uidByte[i] < 0x10 ? " 0" : " ");
+    Serial.print(scanTing.uid.uidByte[i], HEX);
+  }
+
+  Serial.println();
+
+} 
