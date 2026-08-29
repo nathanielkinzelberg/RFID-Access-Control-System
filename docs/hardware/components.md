@@ -30,8 +30,15 @@
 | Frequency         | 13.56 MHz |
 | Protocol          | ISO/IEC 14443 A |
 | Max SPI clock     | 10 MHz |
+| Module type       | Clone (non-genuine) |
+| Firmware version  | 0x18 (genuine returns 0x91 or 0x92) |
+| Pin layout        | SDA, SCK, MOSI, MISO, IRQ, GND, RST, 3.3 (left to right) |
+| MOSI/MISO labels  | **Swapped on this module** — wire opposite to silk-screen labels |
+| Library           | miguelbalboa/MFRC522@^1.4.11 |
 
 > 3.3V only. Connecting 5V will damage the module.
+
+> **MOSI/MISO are physically swapped on this clone module.** Connect ESP32 D23 (MOSI) to the RC522 pin labelled MISO, and ESP32 D19 (MISO) to the RC522 pin labelled MOSI. This is a known issue with cheap clone modules.
 
 ---
 
