@@ -21,6 +21,11 @@ Each phase that introduces new hardware has a wiring table here and in its journ
 |------------|------------------|-------|
 | 2          | LED output       | 1     |
 | 4          | Button input     | 1     |
+| 5          | RC522 SDA (SS)   | 2     |
+| 18         | RC522 SCK        | 2     |
+| 19         | RC522 MISO       | 2     |
+| 22         | RC522 RST        | 2     |
+| 23         | RC522 MOSI       | 2     |
 
 ## Voltage Rails
 
