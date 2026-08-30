@@ -23,9 +23,9 @@ Each phase that introduces new hardware has a wiring table here and in its journ
 | 4          | Button input     | 1     |
 | 5          | RC522 SDA (SS)   | 2     |
 | 18         | RC522 SCK        | 2     |
-| 19         | RC522 MISO       | 2     |
+| 19         | RC522 MISO       | 2     — physically connected to pin labelled MOSI on clone module |
 | 22         | RC522 RST        | 2     |
-| 23         | RC522 MOSI       | 2     |
+| 23         | RC522 MOSI       | 2     — physically connected to pin labelled MISO on clone module |
 
 ## Voltage Rails
 
