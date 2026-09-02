@@ -84,7 +84,7 @@ Card UID: C7 FA 4D 07
 
 | UID | Card |
 |-----|------|
-| 04 27 5A 0A 0A 1F 91 | Gym card (7-byte MIFARE) |
+| 04 27 5A 0A 0A 1F 91 | Icon Gym card (7-byte MIFARE) |
 | C7 FA 4D 07 | Blank RC522 kit card (4-byte MIFARE) |
 
 ---
@@ -99,7 +99,7 @@ Card UID: C7 FA 4D 07
 ### version 0x18 instead of 0x91/0x92
 **Symptom:** Version register returned 0x18 instead of the expected 0x91 or 0x92.
 **Cause:** Clone RC522 module with non-standard firmware version. Common with cheap modules.
-**Fix:** No fix needed — 0x18 is normal for this clone. Cards scan correctly.
+**Fix:** No fix needed — 0x18 is normal for this clone and was actually the working hash. Cards scan correctly.
 
 ### MOSI and MISO labels swapped on RC522 module
 **Symptom:** Version read as 0x0 with standard wiring, 0x18 when MOSI/MISO were swapped.

@@ -8,6 +8,11 @@
 
 MFRC522 scanTing(SS_PIN, RST_PIN); // Create MFRC522 instance thats global
 
+// Struct to hole the UID + name for each Authorized User.
+struct authorizedUser {
+  byte uid[4];
+  String name;
+};
 
 void setup() {
   Serial.begin(115200); // starts serial so we can print to monito
