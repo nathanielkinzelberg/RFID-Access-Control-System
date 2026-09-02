@@ -48,3 +48,15 @@ void loop () {
   Serial.println();
 
 } 
+
+
+
+
+bool lookup(int id){
+  for(int i = 0; i < sizeOf(authorizedUsers); i++){
+    if(id == authorizedUsers[i].uid){
+      return true;
+    }
+  }
+  return false;
+}
