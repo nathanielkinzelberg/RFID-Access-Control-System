@@ -58,6 +58,18 @@ void loop () {
 
   Serial.println();
 
+  String user = lookup(scanTing.uid.uidByte, scanTing.uid.size); // Lookup the name of the user based on the UID 
+
+  if(user != "Unknown"){ // If the card is authorized
+    Serial.print(F("Authorized User: ")); // Print the name of the user
+    Serial.println(user);
+    delay(2000); // Wait 2 seconds after an access granted
+  } else {
+    Serial.println(F("Unauthorized User: Access Denied")); // If the card is not authorized, print unauthorized user
+    delay(2000); // Wait 2 seconds after an access denied
+  }
+
+
 } 
 
 
