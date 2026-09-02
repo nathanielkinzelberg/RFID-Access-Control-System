@@ -8,10 +8,16 @@
 
 MFRC522 scanTing(SS_PIN, RST_PIN); // Create MFRC522 instance thats global
 
-// Struct to hole the UID + name for each Authorized User.
+// Struct to hole the UID + name + byte size for each Authorized User.
 struct authorizedUser {
-  byte uid[4];
+  byte uid[7];
+  byte uidSize;
   String name;
+};
+
+authorizedUser authorizedUsers[] = {
+  {{0xC7, 0xFA, 0x4D, 0x07, 0x00, 0x00, 0x00}, 4, "Blank Kit Card"},
+  {{0x04, 0x27, 0x5A, 0x0A, 0x0A, 0x1F, 0x91}, 7, "Icon Bomboclat Card"}
 };
 
 void setup() {
