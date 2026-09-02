@@ -20,6 +20,17 @@ authorizedUser authorizedUsers[] = {
   {{0x04, 0x27, 0x5A, 0x0A, 0x0A, 0x1F, 0x91}, 7, "Icon Bomboclat Card"}
 };
 
+String lookup(byte* uid, byte uidSize){
+  for(int i = 0; i < sizeof(authorizedUsers) / sizeof(authorizedUsers[0]); i++){
+    if(uidSize == authorizedUsers[i].uidSize){
+      if(memcmp(uid, authorizedUsers[i].uid, uidSize) == 0){
+        return authorizedUsers[i].name;
+      }
+    }
+  }
+  return "Unknown";
+}
+
 void setup() {
   Serial.begin(115200); // starts serial so we can print to monito
   SPI.begin(18, 19, 23, 5); // Starts SPI bus
@@ -52,11 +63,3 @@ void loop () {
 
 
 
-bool lookup(int id){
-  for(int i = 0; i < sizeOf(authorizedUsers); i++){
-    if(id == authorizedUsers[i].uid){
-      return true;
-    }
-  }
-  return false;
-}
