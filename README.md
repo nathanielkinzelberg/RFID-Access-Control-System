@@ -2,7 +2,7 @@
 
 A complete embedded access-control system built from scratch as a portfolio project. The ESP32 handles all real-time hardware control; the Raspberry Pi 5 handles logging, administration, and the web dashboard.
 
-> **Status:** In progress — Phase 5 (Buzzer)
+> **Status:** In progress — Phase 6 (Servo Lock)
 
 ## Progress
 
@@ -13,7 +13,7 @@ A complete embedded access-control system built from scratch as a portfolio proj
 | 2     | RC522 RFID Reader          | Complete    |
 | 3     | Authorization Logic        | Complete    |
 | 4     | Status LEDs                | Complete    |
-| 5     | Buzzer                     | In Progress |
+| 5     | Buzzer                     | Complete    |
 | 6     | Servo Lock                 | Not Started |
 | 7     | OLED Display               | Not Started |
 | 8     | Firmware Architecture      | Not Started |

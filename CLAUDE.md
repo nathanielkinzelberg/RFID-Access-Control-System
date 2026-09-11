@@ -49,8 +49,8 @@ embedded-rfid-access-control/
 | 2     | RC522 RFID Reader            | Complete    |
 | 3     | Authorization Logic          | Complete    |
 | 4     | Status LEDs                  | Complete    |
-| 5     | Buzzer                       | In Progress |
-| 6     | Servo Lock                   | Not Started |
+| 5     | Buzzer                       | Complete    |
+| 6     | Servo Lock                   | In Progress |
 | 7     | OLED Display                 | Not Started |
 | 8     | Firmware Architecture        | Not Started |
 | 9     | Persistent Authorized Users  | Not Started |

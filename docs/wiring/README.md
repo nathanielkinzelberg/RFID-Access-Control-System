@@ -28,6 +28,7 @@ Each phase that introduces new hardware has a wiring table here and in its journ
 | 23         | RC522 MOSI       | 2     — physically connected to pin labelled MISO on clone module |
 | 25         | Green LED +      | 4     |
 | 26         | Red LED +        | 4     |
+| 13         | Active buzzer +  | 5     |
 
 ## Voltage Rails
 
