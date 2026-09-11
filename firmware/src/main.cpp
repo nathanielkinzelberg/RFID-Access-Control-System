@@ -40,7 +40,7 @@ void setup() {
   Serial.println(version, HEX);
   pinMode(25, OUTPUT); // Set pin 25 as output for the Green LED 
   pinMode(26, OUTPUT); // Set pin 26 as output for the Red LED
-
+  pinMode(13, OUTPUT); // Set pin 13 as output for the Active Buzzer
 }
 
 void loop () {
@@ -67,12 +67,19 @@ void loop () {
     Serial.print(F("Authorized User: ")); // Print the name of the user
     Serial.println(user);
     digitalWrite(25, HIGH); // Turn on the Green LED
+    digitalWrite(13, HIGH); // Turn on the Active Buzzer
     delay(2000); // Wait 2 seconds after an access granted
+    digitalWrite(13, LOW); // Turn off the Active Buzzer
     digitalWrite(25, LOW); // Turn off the Green LED
   } else {
     Serial.println(F("Unauthorized User: Access Denied")); // If the card is not authorized, print unauthorized user
     digitalWrite(26, HIGH); // Turn on the Red LED
-    delay(2000); // Wait 2 seconds after an access denied
+    for(int i = 0; i < 5; i++){
+      digitalWrite(13, HIGH); // Turn on the Active Buzzer
+      delay(200); // Wait 100 milliseconds
+      digitalWrite(13, LOW); // Turn off the Active Buzzer
+      delay(200); // Wait 100 milliseconds
+    }
     digitalWrite(26, LOW); // Turn off the Red LED
   }
 
