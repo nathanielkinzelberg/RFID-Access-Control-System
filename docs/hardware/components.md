@@ -83,11 +83,11 @@ How to test: Apply 3.3V directly. If it beeps without any signal, it is active. 
 
 ## LEDs
 
-| Color  | Forward Voltage (typical) | Current Limiting Resistor (3.3V) |
-|--------|---------------------------|----------------------------------|
-| Red    | ~2.0V                     | 68–100 Ω                         |
-| Green  | ~2.1V                     | 68–100 Ω                         |
-| Yellow | ~2.1V                     | 68–100 Ω                         |
+| Color  | Forward Voltage (typical) | Current Limiting Resistor (3.3V) | GPIO (Phase 4) |
+|--------|---------------------------|----------------------------------|----------------|
+| Red    | ~2.0V                     | 220 Ω (confirmed)                | GPIO 26        |
+| Green  | ~2.1V                     | 220 Ω (confirmed)                | GPIO 25        |
+| Yellow | ~2.1V                     | 68–100 Ω                         | —              |
 
 Formula: R = (Vsupply − Vforward) / Idesired
 

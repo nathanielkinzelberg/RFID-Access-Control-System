@@ -48,8 +48,8 @@ embedded-rfid-access-control/
 | 1     | GPIO Basics (LED + Button)   | Complete    |
 | 2     | RC522 RFID Reader            | Complete    |
 | 3     | Authorization Logic          | Complete    |
-| 4     | Status LEDs                  | In Progress |
-| 5     | Buzzer                       | Not Started |
+| 4     | Status LEDs                  | Complete    |
+| 5     | Buzzer                       | In Progress |
 | 6     | Servo Lock                   | Not Started |
 | 7     | OLED Display                 | Not Started |
 | 8     | Firmware Architecture        | Not Started |
