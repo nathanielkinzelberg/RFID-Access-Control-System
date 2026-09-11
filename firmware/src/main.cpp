@@ -38,6 +38,9 @@ void setup() {
   byte version = scanTing.PCD_ReadRegister(scanTing.VersionReg); // Read version register
   Serial.print("MFRC522 Version: 0x");
   Serial.println(version, HEX);
+  pinMode(25, OUTPUT); // Set pin 25 as output for the Green LED 
+  pinMode(26, OUTPUT); // Set pin 26 as output for the Red LED
+
 }
 
 void loop () {
@@ -63,10 +66,14 @@ void loop () {
   if(user != "Unknown"){ // If the card is authorized
     Serial.print(F("Authorized User: ")); // Print the name of the user
     Serial.println(user);
+    digitalWrite(25, HIGH); // Turn on the Green LED
     delay(2000); // Wait 2 seconds after an access granted
+    digitalWrite(25, LOW); // Turn off the Green LED
   } else {
     Serial.println(F("Unauthorized User: Access Denied")); // If the card is not authorized, print unauthorized user
+    digitalWrite(26, HIGH); // Turn on the Red LED
     delay(2000); // Wait 2 seconds after an access denied
+    digitalWrite(26, LOW); // Turn off the Red LED
   }
 
 
