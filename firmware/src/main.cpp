@@ -2,6 +2,7 @@
 #include <MFRC522.h>
 #include <SPI.h>
 #include <ESP32Servo.h>
+#include <Wire.h>
 
 #define SS_PIN 5
 #define RST_PIN 22
@@ -46,6 +47,7 @@ void setup() {
   pinMode(13, OUTPUT); // Set pin 13 as output for the Active Buzzer
   pinMode(4, INPUT_PULLUP); // Set pin 4 as output for the locking button
   myServo.attach(14); // Attach servo to pin 14
+
  }
 
 void loop () {
