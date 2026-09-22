@@ -44,6 +44,7 @@ void setup() {
   pinMode(25, OUTPUT); // Set pin 25 as output for the Green LED 
   pinMode(26, OUTPUT); // Set pin 26 as output for the Red LED
   pinMode(13, OUTPUT); // Set pin 13 as output for the Active Buzzer
+  pinMode(4, INPUT_PULLUP); // Set pin 4 as output for the locking button
   myServo.attach(14); // Attach servo to pin 14
  }
 
@@ -67,15 +68,19 @@ void loop () {
 
   String user = lookup(scanTing.uid.uidByte, scanTing.uid.size); // Lookup the name of the user based on the UID 
 
+
   if(user != "Unknown"){ // If the card is authorized
     Serial.print(F("Authorized User: ")); // Print the name of the user
     Serial.println(user);
     digitalWrite(25, HIGH); // Turn on the Green LED
     digitalWrite(13, HIGH); // Turn on the Active Buzzer
-    myServo.write(180); // Move the servo to 180 degrees
+    myServo.write(100); // Move the servo to 180 degrees
     delay(2000); // Wait 2 seconds after an access granted
     digitalWrite(13, LOW); // Turn off the Active Buzzer
     digitalWrite(25, LOW); // Turn off the Green LED
+    while(digitalRead(4)){ // Wait until the locking button is pressed
+      continue; // Keep Looping Until Button is Pressed
+    }
     myServo.write(0); // Move the servo back to 0 degrees
   } else {
     Serial.println(F("Unauthorized User: Access Denied")); // If the card is not authorized, print unauthorized user
