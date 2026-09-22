@@ -50,6 +50,22 @@ void setup() {
 
 void loop () {
 
+    if(!digitalRead(4)) { // If the locking button is pressed
+    myServo.write(0); // Move the servo back to 0 degrees
+
+    /* Locking Beeps: Flashed red and beeps twice quickly */
+
+    digitalWrite(26, HIGH); // Turn on the Red LED
+    for(int i = 0; i < 5; i++){
+      digitalWrite(13, HIGH); // Turn on the Active Buzzer
+      delay(50); // Wait 50 milliseconds
+      digitalWrite(13, LOW); // Turn off the Active Buzzer
+      delay(50); // Wait 50 milliseconds
+    }
+    digitalWrite(26, LOW); // Turn off the Red LED
+
+  }
+
   if(!scanTing.PICC_IsNewCardPresent()) { // If no new card is present, return
     return;
   }
@@ -82,6 +98,18 @@ void loop () {
       continue; // Keep Looping Until Button is Pressed
     }
     myServo.write(0); // Move the servo back to 0 degrees
+
+    /* Locking Beeps: Flashed red and beeps twice quickly */
+    
+    digitalWrite(26, HIGH); // Turn on the Red LED
+    for(int i = 0; i < 5; i++){
+      digitalWrite(13, HIGH); // Turn on the Active Buzzer
+      delay(50); // Wait 50 milliseconds
+      digitalWrite(13, LOW); // Turn off the Active Buzzer
+      delay(50); // Wait 50 milliseconds
+    }
+    digitalWrite(26, LOW); // Turn off the Red LED
+
   } else {
     Serial.println(F("Unauthorized User: Access Denied")); // If the card is not authorized, print unauthorized user
     digitalWrite(26, HIGH); // Turn on the Red LED
