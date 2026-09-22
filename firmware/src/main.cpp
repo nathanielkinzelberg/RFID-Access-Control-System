@@ -3,6 +3,8 @@
 #include <SPI.h>
 #include <ESP32Servo.h>
 #include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 
 #define SS_PIN 5
 #define RST_PIN 22
@@ -18,6 +20,8 @@ struct authorizedUser {
 };
 
 Servo myServo; // Create Servo object to control a servo
+
+Adafruit_SSD1306 display(128, 64, &Wire, -1); // Create display object for OLED
 
 authorizedUser authorizedUsers[] = {
   {{0xC7, 0xFA, 0x4D, 0x07, 0x00, 0x00, 0x00}, 4, "Blank Kit Card"},
@@ -47,7 +51,10 @@ void setup() {
   pinMode(13, OUTPUT); // Set pin 13 as output for the Active Buzzer
   pinMode(4, INPUT_PULLUP); // Set pin 4 as output for the locking button
   myServo.attach(14); // Attach servo to pin 14
-
+  Wire.begin(21, 15);
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  display.clearDisplay();
+  display.display();
  }
 
 void loop () {
