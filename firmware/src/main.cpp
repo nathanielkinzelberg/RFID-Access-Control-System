@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <MFRC522.h>
 #include <SPI.h>
+#include <ESP32Servo.h>
 
 #define SS_PIN 5
 #define RST_PIN 22
