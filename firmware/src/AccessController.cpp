@@ -23,11 +23,11 @@ void accessUpdate() {
             String user = getCardUID();
             if (user != "Unknown") {
                 current_state = UNLOCKED;
-                screenOutput("Access Granted\nWelcome\n" + user, 0, 2);
+                screenOutput("Access Granted\nWelcome\n" + user, 0, 1);
                 lockOpen();
                 beepAccessGranted();
             } else {
-                screenOutput("Access Denied", 0, 2);
+                screenOutput("Access\nDenied", 0, 2);
                 beepAccessDenied();
             }
         }
