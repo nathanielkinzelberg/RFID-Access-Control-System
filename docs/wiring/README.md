@@ -29,6 +29,8 @@ Each phase that introduces new hardware has a wiring table here and in its journ
 | 25         | Green LED +      | 4     |
 | 26         | Red LED +        | 4     |
 | 13         | Active buzzer +  | 5     |
+| 14         | Servo PWM signal | 6     |
+| 4          | Relock button    | 6     |
 
 ## Voltage Rails
 

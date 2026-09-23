@@ -47,12 +47,15 @@
 | Item              | Value |
 |-------------------|-------|
 | Operating voltage | 4.8–6V (use 5V) |
+| Power source      | USB charger via cut USB cable (5V red wire, GND black wire) |
 | Stall current     | ~650 mA |
 | No-load current   | ~100–250 mA |
 | PWM frequency     | 50 Hz (20 ms period) |
 | Pulse: 0°         | ~1.0 ms |
 | Pulse: 90°        | ~1.5 ms |
 | Pulse: 180°       | ~2.0 ms |
+| GPIO (Phase 6)    | GPIO 14 (PWM signal) |
+| Library           | madhephaestus/ESP32Servo@^0.13.0 |
 
 > Power from external 5V supply, NOT the ESP32 3.3V pin. Share GND with ESP32.
 
