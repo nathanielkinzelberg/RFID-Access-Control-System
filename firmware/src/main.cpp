@@ -9,19 +9,16 @@
 #define SS_PIN 5
 #define RST_PIN 22
 
+MFRC522 scanTing(SS_PIN, RST_PIN);
 
-MFRC522 scanTing(SS_PIN, RST_PIN); // Create MFRC522 instance thats global
-
-// Struct to hole the UID + name + byte size for each Authorized User.
 struct authorizedUser {
   byte uid[7];
   byte uidSize;
   String name;
 };
 
-Servo myServo; // Create Servo object to control a servo
-
-Adafruit_SSD1306 display(128, 64, &Wire, -1); // Create display object for OLED
+Servo myServo;
+Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
 authorizedUser authorizedUsers[] = {
   {{0xC7, 0xFA, 0x4D, 0x07, 0x00, 0x00, 0x00}, 4, "Blank Kit Card"},
@@ -39,105 +36,105 @@ String lookup(byte* uid, byte uidSize){
   return "Unknown";
 }
 
+/* Outputs str to the OLED for "time" milliseconds at text size "size" */
+void screenOutput(String str, int time, int size) {
+  display.clearDisplay();
+  display.setTextSize(size);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+  display.println(str);
+  display.display();
+  delay(time);
+}
+
+void lock() {
+  screenOutput("Locking...", 0, 2);
+  myServo.write(0);
+
+  digitalWrite(26, HIGH);
+  for(int i = 0; i < 5; i++){
+    digitalWrite(13, HIGH);
+    delay(50);
+    digitalWrite(13, LOW);
+    delay(50);
+  }
+
+  screenOutput("Locked", 2000, 2);
+  digitalWrite(26, LOW);
+}
+
 void setup() {
-  Serial.begin(115200); // starts serial so we can print to monito
-  SPI.begin(18, 19, 23, 5); // Starts SPI bus
-  scanTing.PCD_Init(); // Init MFRC522
-  byte version = scanTing.PCD_ReadRegister(scanTing.VersionReg); // Read version register
+  Serial.begin(115200);
+  SPI.begin(18, 19, 23, 5);
+  scanTing.PCD_Init();
+  byte version = scanTing.PCD_ReadRegister(scanTing.VersionReg);
   Serial.print("MFRC522 Version: 0x");
   Serial.println(version, HEX);
-  pinMode(25, OUTPUT); // Set pin 25 as output for the Green LED 
-  pinMode(26, OUTPUT); // Set pin 26 as output for the Red LED
-  pinMode(13, OUTPUT); // Set pin 13 as output for the Active Buzzer
-  pinMode(4, INPUT_PULLUP); // Set pin 4 as output for the locking button
-  myServo.attach(14); // Attach servo to pin 14
+  pinMode(25, OUTPUT);
+  pinMode(26, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(4, INPUT_PULLUP);
+  myServo.attach(14);
   Wire.begin(21, 15);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
-  display.println("Testing... :)");
   display.display();
- }
+}
 
-void loop () {
+void loop() {
 
-    if(!digitalRead(4)) { // If the locking button is pressed
-    myServo.write(0); // Move the servo back to 0 degrees
+  screenOutput("Please Scan\nYour Card", 0, 1);
 
-    /* Locking Beeps: Flashed red and beeps twice quickly */
-
-    digitalWrite(26, HIGH); // Turn on the Red LED
-    for(int i = 0; i < 5; i++){
-      digitalWrite(13, HIGH); // Turn on the Active Buzzer
-      delay(50); // Wait 50 milliseconds
-      digitalWrite(13, LOW); // Turn off the Active Buzzer
-      delay(50); // Wait 50 milliseconds
-    }
-    digitalWrite(26, LOW); // Turn off the Red LED
-
+  if(!digitalRead(4)) {
+    lock();
   }
 
-  if(!scanTing.PICC_IsNewCardPresent()) { // If no new card is present, return
+  if(!scanTing.PICC_IsNewCardPresent()) {
     return;
   }
 
-  if(!scanTing.PICC_ReadCardSerial()) { // If we can't read the card, return
+  if(!scanTing.PICC_ReadCardSerial()) {
     return;
   }
 
-  Serial.print(F("Card UID:")); // Print UID
+  Serial.print(F("Card UID:"));
   for (byte i = 0; i < scanTing.uid.size; i++) {
     Serial.print(scanTing.uid.uidByte[i] < 0x10 ? " 0" : " ");
     Serial.print(scanTing.uid.uidByte[i], HEX);
   }
-
   Serial.println();
 
-  String user = lookup(scanTing.uid.uidByte, scanTing.uid.size); // Lookup the name of the user based on the UID 
+  String user = lookup(scanTing.uid.uidByte, scanTing.uid.size);
 
-
-  if(user != "Unknown"){ // If the card is authorized
-    Serial.print(F("Authorized User: ")); // Print the name of the user
+  if(user != "Unknown"){
+    Serial.print(F("Authorized User: "));
     Serial.println(user);
-    digitalWrite(25, HIGH); // Turn on the Green LED
-    digitalWrite(13, HIGH); // Turn on the Active Buzzer
-    myServo.write(100); // Move the servo to 180 degrees
-    delay(2000); // Wait 2 seconds after an access granted
-    digitalWrite(13, LOW); // Turn off the Active Buzzer
-    digitalWrite(25, LOW); // Turn off the Green LED
-    while(digitalRead(4)){ // Wait until the locking button is pressed
-      continue; // Keep Looping Until Button is Pressed
-    }
-    myServo.write(0); // Move the servo back to 0 degrees
+    screenOutput("Opening...", 0, 2);
+    digitalWrite(25, HIGH);
+    digitalWrite(13, HIGH);
+    myServo.write(100);
+    delay(2000);
+    digitalWrite(13, LOW);
+    digitalWrite(25, LOW);
+    screenOutput("Access Granted\nWelcome\n" + user, 0, 1);
 
-    /* Locking Beeps: Flashed red and beeps twice quickly */
-    
-    digitalWrite(26, HIGH); // Turn on the Red LED
-    for(int i = 0; i < 5; i++){
-      digitalWrite(13, HIGH); // Turn on the Active Buzzer
-      delay(50); // Wait 50 milliseconds
-      digitalWrite(13, LOW); // Turn off the Active Buzzer
-      delay(50); // Wait 50 milliseconds
+    while(digitalRead(4)){
+      continue;
     }
-    digitalWrite(26, LOW); // Turn off the Red LED
+
+    lock();
 
   } else {
-    Serial.println(F("Unauthorized User: Access Denied")); // If the card is not authorized, print unauthorized user
-    digitalWrite(26, HIGH); // Turn on the Red LED
+    Serial.println(F("Unauthorized User: Access Denied"));
+    screenOutput("Access Denied", 0, 2);
+    digitalWrite(26, HIGH);
     for(int i = 0; i < 5; i++){
-      digitalWrite(13, HIGH); // Turn on the Active Buzzer
-      delay(200); // Wait 100 milliseconds
-      digitalWrite(13, LOW); // Turn off the Active Buzzer
-      delay(200); // Wait 100 milliseconds
+      digitalWrite(13, HIGH);
+      delay(250);
+      digitalWrite(13, LOW);
+      delay(250);
     }
-    digitalWrite(26, LOW); // Turn off the Red LED
+    digitalWrite(26, LOW);
+    screenOutput("Please Try Again", 2000, 1);
   }
-
-
-} 
-
-
-
-
+}
