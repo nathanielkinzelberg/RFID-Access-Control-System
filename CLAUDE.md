@@ -52,8 +52,8 @@ embedded-rfid-access-control/
 | 5     | Buzzer                       | Complete    |
 | 6     | Servo Lock                   | Complete    |
 | 7     | OLED Display                 | Complete    |
-| 8     | Firmware Architecture        | In Progress |
-| 9     | Persistent Authorized Users  | Not Started |
+| 8     | Firmware Architecture        | Complete    |
+| 9     | Persistent Authorized Users  | In Progress |
 | 10    | Admin Mode                   | Not Started |
 | 11    | Failed Login Protection      | Not Started |
 | 12    | ESP32 ↔ Pi Communication     | Not Started |

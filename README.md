@@ -2,7 +2,7 @@
 
 A complete embedded access-control system built from scratch as a portfolio project. The ESP32 handles all real-time hardware control; the Raspberry Pi 5 handles logging, administration, and the web dashboard.
 
-> **Status:** In progress — Phase 8 (Firmware Architecture)
+> **Status:** In progress — Phase 9 (Persistent Authorized Users)
 
 ## Progress
 
@@ -16,7 +16,7 @@ A complete embedded access-control system built from scratch as a portfolio proj
 | 5     | Buzzer                     | Complete    |
 | 6     | Servo Lock                 | Complete    |
 | 7     | OLED Display               | Complete    |
-| 8     | Firmware Architecture      | Not Started |
+| 8     | Firmware Architecture      | Complete    |
 | 9     | Persistent Authorized Users| Not Started |
 | 10    | Admin Mode                 | Not Started |
 | 11    | Failed Login Protection    | Not Started |
@@ -110,7 +110,18 @@ Unauthorized cards trigger a denied state — red LED, warning buzzer, OLED deni
 
 ## Firmware Architecture
 
-*(Filled in during Phase 8)*
+The firmware is split into separate modules, each owning one subsystem:
+
+| File | Responsibility |
+|---|---|
+| `main.cpp` | `setup()` and `loop()` only — delegates everything |
+| `AccessController` | State machine — coordinates all modules |
+| `RFIDManager` | RFID scanning, UID lookup, authorized user list |
+| `LockController` | Servo control |
+| `DisplayManager` | OLED output |
+| `Buzzer` | Audio feedback patterns |
+
+States: `LOCKED` (idle, scanning) and `UNLOCKED` (servo open, waiting for button relock).
 
 ---
 
