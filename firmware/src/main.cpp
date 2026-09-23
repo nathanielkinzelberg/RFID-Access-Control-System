@@ -52,13 +52,12 @@ void lock() {
   myServo.write(0);
 
   digitalWrite(26, HIGH);
-  for(int i = 0; i < 5; i++){
+  for(int i = 0; i < 7; i++){
     digitalWrite(13, HIGH);
     delay(50);
     digitalWrite(13, LOW);
     delay(50);
   }
-
   screenOutput("Locked", 2000, 2);
   digitalWrite(26, LOW);
 }
@@ -83,7 +82,7 @@ void setup() {
 
 void loop() {
 
-  screenOutput("Please Scan\nYour Card", 0, 1);
+  screenOutput("Please\nScan\nYour Card", 0, 2);
 
   if(!digitalRead(4)) {
     lock();
@@ -117,8 +116,13 @@ void loop() {
     digitalWrite(13, LOW);
     digitalWrite(25, LOW);
     screenOutput("Access Granted\nWelcome\n" + user, 0, 1);
+    
+    unsigned long startTime = millis();
 
     while(digitalRead(4)){
+      if(millis() - startTime > 4000){
+        screenOutput("Open", 0, 2);
+      }
       continue;
     }
 

@@ -67,9 +67,13 @@
 |-------------------|-------|
 | Interface         | I2C |
 | Operating voltage | 3.3V or 5V (most modules) |
-| Default I2C address | 0x3C (some use 0x3D — run scanner) |
+| I2C address       | 0x3C (confirmed via scanner) |
 | Resolution        | 128×64 pixels |
 | Controller IC     | SSD1306 |
+| SDA pin           | GPIO 21 |
+| SCL pin           | GPIO 15 (moved from default 22 — conflict with RC522 RST) |
+| Display zones     | Top ~16px yellow, remainder blue — physical property of module |
+| Library           | adafruit/Adafruit SSD1306@^2.5.7 + adafruit/Adafruit GFX Library@^1.11.9 |
 
 ---
 

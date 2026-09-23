@@ -51,8 +51,8 @@ embedded-rfid-access-control/
 | 4     | Status LEDs                  | Complete    |
 | 5     | Buzzer                       | Complete    |
 | 6     | Servo Lock                   | Complete    |
-| 7     | OLED Display                 | In Progress |
-| 8     | Firmware Architecture        | Not Started |
+| 7     | OLED Display                 | Complete    |
+| 8     | Firmware Architecture        | In Progress |
 | 9     | Persistent Authorized Users  | Not Started |
 | 10    | Admin Mode                   | Not Started |
 | 11    | Failed Login Protection      | Not Started |
