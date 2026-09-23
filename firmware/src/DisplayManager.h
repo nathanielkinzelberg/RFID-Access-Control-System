@@ -5,4 +5,4 @@
 void screenOutput(String str, int time, int size);
 
 /* Initializes the OLED display */
-void screenInit();
+void displayInit();

@@ -15,9 +15,9 @@ void beepAccessGranted() {
 void beepAccessDenied() {
   for(int i = 0; i < 5; i++){
     digitalWrite(13, HIGH);
-    delay(250);
+    delay(200);
     digitalWrite(13, LOW);
-    delay(250);
+    delay(200);
   }
 }
 

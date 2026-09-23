@@ -6,7 +6,7 @@
 
 static Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
-void screenInit() {
+void displayInit() {
   Wire.begin(21, 15);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.clearDisplay();
