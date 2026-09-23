@@ -130,7 +130,7 @@ void loop() {
 
   } else {
     Serial.println(F("Unauthorized User: Access Denied"));
-    screenOutput("Access Denied", 0, 2);
+    screenOutput("Access\nDenied", 0, 2);
     digitalWrite(26, HIGH);
     for(int i = 0; i < 5; i++){
       digitalWrite(13, HIGH);
@@ -139,6 +139,6 @@ void loop() {
       delay(250);
     }
     digitalWrite(26, LOW);
-    screenOutput("Please Try Again", 2000, 1);
+    screenOutput("Please\nTry Again", 2000, 2);
   }
 }
