@@ -39,6 +39,7 @@ void accessUpdate() {
             lockClose();
             screenOutput("Locking...", 0, 2);
             beepLock();
+            screenOutput("Locked", 2000, 2);
             current_state = LOCKED;
         }
     }
