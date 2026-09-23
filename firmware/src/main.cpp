@@ -18,7 +18,6 @@ struct authorizedUser {
 };
 
 Servo myServo;
-Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
 authorizedUser authorizedUsers[] = {
   {{0xC7, 0xFA, 0x4D, 0x07, 0x00, 0x00, 0x00}, 4, "Blank Kit Card"},
